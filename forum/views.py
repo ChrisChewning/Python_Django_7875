@@ -1,27 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse #
-
-
-posts = [
-    {
-       'author': 'Chris',
-        'title': 'Blog post 1', 
-        'content': 'First post',
-        'date_posted': 'Sept. 22, 2019'
-    },
-    {
-        'author': 'Chris 2', 
-        'title': 'Blog post 2',
-        'content': 'Second post',
-        'date_posted': 'Sept. 23, 2019'
-    }
-]
+from .models import Post   #. b.c it's in same directory. Post class
 
 
 # Create your views here. handles traffic from home page of the forum.
 def home(request):
     context = {
-        'posts': posts #value is the posts []
+        'posts': Post.objects.all()
     }
     return render(request, 'forum/home.html', context) #passes the data in here.
    
