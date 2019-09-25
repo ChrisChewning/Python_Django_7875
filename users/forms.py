@@ -14,15 +14,19 @@ class UserRegisterForm(UserCreationForm):
 
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
-
+            #self.fields[fieldname].label = None
 
     class Meta:
         model = User 
-        widgets = {
-            'username' : forms.TextInput(attrs = {'placeholder': 'Username'}),
-           # 'username' : forms.CharField(label='')
-        }
         fields = ['username', 'email', 'password1', 'password2']
+        widgets = {
+           # 'username' : forms.TextInput(attrs = {'placeholder': 'Username'}),
+            'email' : forms.TextInput(attrs = {'placeholder': 'Email Address'}),
+            'password1' : forms.TextInput(attrs = {'placeholder': 'Password'}),
+            'password2' : forms.TextInput(attrs = {'placeholder': 'Confirm Password'}),
+        }
+   
+   #https://stackoverflow.com/questions/13523286/how-to-add-placeholder-to-forms-of-django-registration
 
 
  #added email to the existing form here. default () is required=True

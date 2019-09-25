@@ -1,0 +1,15 @@
+{% extends "forum/base.html" %}
+{% block content %}
+    <h2>You are logged out</h2>
+        <div class="border-top pt-3">
+            <small class="text-muted"> 
+                <a class="ml-2" href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+{% endblock content %}
+
+
+<!-- csrf_token is a hidden tag. cross-site req forgery. random string-->
+<!-- legend gives more detail -->
+
+<!-- legend is the top register part -->
