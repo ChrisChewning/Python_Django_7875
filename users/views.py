@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-#don't need any more: from django.contrib.auth.forms import UserCreationForm 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm

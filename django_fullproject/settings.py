@@ -121,6 +121,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#Media_root is full path to store uploaded files. file system not db for performance reasons.
+#BASE_DIR is the location of the project's base directory. 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#public URL of that directory. how we accesss it thru the browser
+MEDIA_URL = '/media/'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'forum-home'
