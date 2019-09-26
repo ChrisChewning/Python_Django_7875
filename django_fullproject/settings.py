@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'forum.apps.ForumConfig',   #comes from apps.py file 
     'users.apps.UsersConfig',
+    'crispy_forms', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,7 +129,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #public URL of that directory. how we accesss it thru the browser
 MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  #this is b.c otherwise it defaults to bootstrap2
 
 LOGIN_REDIRECT_URL = 'forum-home'
 

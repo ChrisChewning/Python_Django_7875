@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Profile
 
 #inherits from UserCreationForm
 
@@ -36,3 +37,21 @@ class UserRegisterForm(UserCreationForm):
  #form.save() saves it 
  # 
  #        
+
+class UserUpdateForm(forms.ModelForm):
+     email = forms.EmailField()
+
+     class Meta:
+         model = User
+         fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
+
+
+        #ModelForm = https://stackoverflow.com/questions/2303268/djangos-forms-form-vs-forms-modelform
+        #class Meta takes in the model and what fields you want to work with.
