@@ -3,25 +3,30 @@ from django.http import HttpResponse #
 from django import forms
 from .models import Post
 from .forms import PostCreate   #. b.c it's in same directory. Post class
+from django.views.generic import DetailView, CreateView
 
-
-# Create your views here. handles traffic from home page of the forum.
+#fn-based view
 def home(request):
     context = {
-        'posts': Post.objects.all()[:10]
+        'posts': Post.objects.all().order_by('-date_posted')[:10],
     }
     return render(request, 'forum/home.html', context) #passes the data in here.
    
+#class-based view. import from DetailView
+class PostDetailView(DetailView):
+    model = Post
 
-def createPost(request):
-    form = PostCreate
-    if request.method == 'POST':
-        post = PostCreate(request.POST)      
-        if post.is_valid():
-            post.save()
-            return redirect('forum/home')
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'content']
 
-    return render(request, 'forum/post.html', {'form': form})
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+#template has to be forum/post_form.html
+#without form.instance.author..  you get the integrity error b.c author is NULL
+#2nd error: no redirect. go to forum/models.py post model
 
 
 # def upload(request, template_name='forum/post.html'):
@@ -42,3 +47,5 @@ def about(request):
 
 #home is R (Read). Gets all the posts. 
 #upload is C (Create). uploading form 
+
+# Create your views here. handles traffic from home page of the forum.

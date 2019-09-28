@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -12,6 +13,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('forum-home')
+       # return reverse('post-detail', kwargs={'pk': self.pk})
+
+
+        #not using redirect. that's for finding the location for a specific post.
+        #redirect - redirects you to specific route
+        #reverse  - returns the full url to that route w a string.
 
 
 #reply?

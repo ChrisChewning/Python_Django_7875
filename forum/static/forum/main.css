@@ -82,11 +82,3 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
-
-  .post_title {
-    background-color: 'blue'
-  }
-
-.post_content {
-    background-color: 'red'
-}
