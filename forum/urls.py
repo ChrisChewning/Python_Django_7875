@@ -3,7 +3,8 @@ from . import views #
 
 urlpatterns = [
     path('', views.home, name = 'forum-home'),  #route, views
-    path('about/', views.about, name='forum-about')
+    path('about/', views.about, name='forum-about'),
+    path('newpost/', views.createPost, name='newpost'),
 ]
 
 

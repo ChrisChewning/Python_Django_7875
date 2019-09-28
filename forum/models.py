@@ -17,3 +17,4 @@ class Post(models.Model):
 #reply?
 #(default=timezone.now)
 #CASCADE if a user is deleted, delete their posts as well
+#django uses pillow to handle Imagefield by default.

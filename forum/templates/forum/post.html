@@ -1,0 +1,18 @@
+{% extends "forum/base.html" %}
+{% block content %}
+<center>
+        <h1 class="display-5">Create a New Post</h1>
+        <form method = 'POST' enctype="mutlipart/form-data">
+        {% csrf_token %}
+        <table class = 'w-50 table table-light' style="border-radius:10px;background-color:#FFFF99;">
+                {% for field in upload_form %}
+                <tr>
+                    <th>{{field.label}}</th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button btn btn-outline-info>Submit</button>
+        </form>
+</center>
+{% endblock content %}
