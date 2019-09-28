@@ -4,6 +4,9 @@ from django import forms
 from .models import Post
 from .forms import PostCreate   #. b.c it's in same directory. Post class
 from django.views.generic import DetailView, CreateView
+from froala_editor.fields import FroalaField
+from froala_editor.widgets import FroalaEditor
+
 
 #fn-based view
 def home(request):
@@ -16,9 +19,11 @@ def home(request):
 class PostDetailView(DetailView):
     model = Post
 
+#@login_required()
 class PostCreateView(CreateView):
     model = Post
     fields = ['title', 'content']
+    content = forms.CharField(widget=FroalaEditor)
 
     def form_valid(self, form):
         form.instance.author = self.request.user

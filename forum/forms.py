@@ -1,15 +1,15 @@
 from django import forms 
 from .models import Post
-
+from froala_editor.widgets import FroalaEditor
 
 class PostCreate(forms.ModelForm):
-  
-    
 
     class Meta:
         model = Post
         fields = ['title', 'content']
-        
+        widgets = {
+             'content': forms.CharField(widget=FroalaEditor)
+        }
 
 #import Post from the models file
 #Import django's forms class.

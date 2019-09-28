@@ -2,7 +2,12 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-<head>
+<head> 
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css" media="all" rel="stylesheet" />
+                <link href="'/static/'froala_editor/css/froala_editor.min.css" type="text/css" media="all" rel="stylesheet" />
+                <link href="'/static/'froala_editor/css/froala_style.min.css" type="text/css" media="all" rel="stylesheet" />
+                <script type="text/javascript" src="{{STATIC_URL}}froala_editor/js/froala_editor.min.js"></script>
+{{ form.media }}
 <link rel="stylesheet" type="text/css" href="{% static 'forum/main.css' %}">
 </head>
 <center>
@@ -10,8 +15,10 @@
         <form  method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
+                <!-- {{ form|crispy }} -->
             <button btn btn-outline-info>Post</button>
         </form>
 </center>
 {% endblock content %}
+
 

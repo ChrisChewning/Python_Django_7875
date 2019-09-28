@@ -1,5 +1,13 @@
 {% extends "forum/base.html" %}
 {% block content %}
+<head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css" media="all" rel="stylesheet" />
+        <link href="{{STATIC_URL}}froala_editor/css/froala_editor.min.css" type="text/css" media="all" rel="stylesheet" />
+        <link href="{{STATIC_URL}}froala_editor/css/froala_style.min.css" type="text/css" media="all" rel="stylesheet" />
+        <script type="text/javascript" src="{{STATIC_URL}}froala_editor/js/froala_editor.min.js"></script>    
+    {{ form.media }}
+
+</head>
     {% for post in posts %}
     <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
@@ -10,7 +18,7 @@
         </div>
         <p>By {{ post.author }} on {{ post.date_posted|date:"N j, 'y"}}</p>
 
-        <p> {{ post.content }} </p>
+        {{ post.content|striptags }} 
     </div>
     
     </article>

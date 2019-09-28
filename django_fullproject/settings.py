@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'forum.apps.ForumConfig',   #comes from apps.py file 
     'users.apps.UsersConfig',
     'crispy_forms', 
+    'froala_editor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,3 +135,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'  #this is b.c otherwise it defaults to boots
 LOGIN_REDIRECT_URL = 'forum-home'
 
 LOGIN_URL = 'login'  #name we gave url pattern for url route
+
+FRAOLA_EDITOR_THIRD_PARTY = ('image_aviary', 'spell_checker')
+
+FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier' , 'code_view', 'colors', 'draggable', 'emoticons',
+        'entities', 'file', 'font_family', 'font_size', 'fullscreen', 'image_manager', 'image', 'inline_style',
+        'line_breaker', 'link', 'html','lists', 'paragraph_format', 'paragraph_style', 'quick_insert', 'quote', 'save', 'table',
+        'url', 'video')
