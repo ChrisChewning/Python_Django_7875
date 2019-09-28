@@ -14,7 +14,14 @@ def home(request):
    
 
 def createPost(request):
-    return render(request, 'forum/post.html')
+    form = PostCreate
+    if request.method == 'POST':
+        post = PostCreate(request.POST)      
+        if post.is_valid():
+            post.save()
+            return redirect('forum/home')
+
+    return render(request, 'forum/post.html', {'form': form})
 
 
 # def upload(request, template_name='forum/post.html'):
