@@ -1,10 +1,7 @@
 {% extends "forum/base.html" %}
 {% block content %}
 <head>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" type="text/css" media="all" rel="stylesheet" />
-        <link href="{{STATIC_URL}}froala_editor/css/froala_editor.min.css" type="text/css" media="all" rel="stylesheet" />
-        <link href="{{STATIC_URL}}froala_editor/css/froala_style.min.css" type="text/css" media="all" rel="stylesheet" />
-        <script type="text/javascript" src="{{STATIC_URL}}froala_editor/js/froala_editor.min.js"></script>    
+    {% load static %}  
     {{ form.media }}
 
 </head>
@@ -17,8 +14,8 @@
                     <a class="article-title" href="{% url 'post-detail' post.id %}"> {{ post.title }}</a></h2>
         </div>
         <p>By {{ post.author }} on {{ post.date_posted|date:"N j, 'y"}}</p>
-
-        {{ post.content|striptags }} 
+        {{form}}
+        {{ post.content|safe }} 
     </div>
     
     </article>
