@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Post
+from .models import Post, Comment
 from froala_editor.widgets import FroalaEditor
 
 class PostCreate(forms.ModelForm):
@@ -7,6 +7,14 @@ class PostCreate(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+        widgets = {
+             'content': forms.CharField(widget=FroalaEditor)
+        }
+
+class CommentCreate(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
         widgets = {
              'content': forms.CharField(widget=FroalaEditor)
         }

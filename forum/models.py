@@ -13,6 +13,7 @@ class Post(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
 
+
     def __str__(self):
         return self.title
 
@@ -21,6 +22,18 @@ class Post(models.Model):
        # return reverse('post-detail', kwargs={'pk': self.pk})
 
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.PROTECT)
+    author = models.CharField(max_length=500)
+    content = FroalaField()
+    date_posted = models.DateTimeField(auto_now=True)
+    approved = models.BooleanField(default=True)
+    
+
+    def get_absolute_url(self):
+        return reverse('post-detail')
+    
+       # return reverse('post-detail', kwargs={'pk': self.pk})
         #not using redirect. that's for finding the location for a specific post.
         #redirect - redirects you to specific route
         #reverse  - returns the full url to that route w a string.
