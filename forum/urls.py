@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf.urls import url
 from . import views #
-from .views import PostCreateView, postdetail, PostUpdateView
+from .views import PostCreateView, postdetail, PostUpdateView, PostDeleteView
 from froala_editor.fields import FroalaField
 
 
@@ -10,6 +10,7 @@ urlpatterns = [
     path('about/', views.about, name='forum-about'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update', PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete', PostDeleteView.as_view(), name='post-delete'),
     path('post/<int:pk>/', views.postdetail, name='post-detail'),
     url(r'^froala_editor/', include('froala_editor.urls')),
     

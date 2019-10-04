@@ -1,0 +1,16 @@
+{% extends "forum/base.html" %}
+{% load static %}
+{% block content %}
+
+<center>
+        <h2 class="display-5">Delete Post</h2>
+        <h3>Are you sure? "{{ object.title }}"</h3>
+        <form  method="post">
+        {% csrf_token %}
+        <button btn btn-outline-danger type="submit">Delete</button>
+        <a class="btn btn-outline-secondary" href="{% url 'post-detail' object.id %}">Cancel</a>
+        </form>
+</center>
+{% endblock content %}
+
+
