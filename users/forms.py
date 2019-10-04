@@ -8,8 +8,6 @@ from .models import Profile
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     
-
-
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
 

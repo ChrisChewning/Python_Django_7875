@@ -12,22 +12,34 @@
             <h2 class="article-title">{{ post.title }} </h2>
         </div>
         <p>By {{ post.author }} on {{ post.date_posted|date:"N j, 'y"}}</p>
-
+        {{ form }}
         {{ post.content|safe }}
     </div>
 
     </article>
-<!-- form|crispy is what's needed -->
         <div class="media-body">            
             {% if user.is_authenticated %}
+            
             <p class='lead'>Reply</p>
             {{ form|crispy }}
+          
             <form method="POST" action="."> 
-                {% csrf_token %}
-                <input type="submit" value="Post comment" class="btn btn-default">
+                {% csrf_token %} 
+                {{ content }}
+                <button type="submit" value="Post comment" class="btn btn-default">Post Comment</button>
             </form>
+            <hr/>
+            <p class='lead'>Comments</p>
+            {% for comment in comments %}
+
+            <blockquote>
+                <p>{{comment.post }}</p>
+                <legend>by {{ comment.author }} | </legend>
+            </blockquote>
             
+            {% endfor %}
             {% endif %}
+           
         </div>
 
 {% endblock content %}

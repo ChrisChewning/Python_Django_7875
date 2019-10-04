@@ -3,11 +3,12 @@ from django.http import HttpResponse #
 from django import forms
 from .models import Post, Comment
 from .forms import PostCreate, CommentCreate   #. b.c it's in same directory. Post class
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, UpdateView
 from froala_editor.fields import FroalaField
 from froala_editor.widgets import FroalaEditor
 from urllib.parse import urlsplit
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #fn-based view
 def home(request):
@@ -15,26 +16,66 @@ def home(request):
         'posts': Post.objects.all().order_by('-date_posted')[:10],
     }
     return render(request, 'forum/home.html', context) #passes the data in here.
-   
-#class-based view. import from DetailView
-# class PostDetailView(DetailView):
-#     model = Post
 
-#     def comment_create(self, request):
-#         context = {
-#             "comment_form": CommentCreate,
-#         }
-        
-#         return render(request, "forum/post_detail.html", context)
+
+#can't use decorators on classes. so login-mixin instead. 
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'content']
+    content = forms.CharField(widget=FroalaEditor)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'content']
+
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
 
 
 def postdetail(request, pk):
     post = Post.objects.get(pk=pk)
+    comment = CommentCreate(request.POST)
+    comment.save()
+    # if request.method == 'POST':
+    #     form = CommentCreate(request.POST) #create a new form w data in request.POST
+    #     if form.is_valid(): #bulit in to module. 
+    #         form.instance.post = post
+    #         username = form.cleaned_data.get('username')
+    #         form.save()
+    #     else:
+    #         return redirect('login')
+            
+   
+                
+           
+            
+            
+             #otherwise you get Integrity error: NOT NULL constraint failed: forum_comment.post_id
+    # comment_form = CommentCreate(request.POST or None)
+    #throwing the error
+
+    # comment = Comment.objects.get(pk=pk)
+
+    def form_valid(self, form):
+        form.instance.post = post
+        return super().form_valid(form)
+
+
     context = {
         'post': post,
-        'object.author': Post.author,
-        'comment': Comment
+        'content' : content,
+        # 'object.author': Post.author,
+        # 'comment': comment,
     }
+
+
     return render(request, "forum/post_detail.html", context)
 
 
@@ -51,18 +92,6 @@ class CommentCreateView(CreateView):
         return super().form_valid(form)
 
 
-
-
-
-#@login_required()
-class PostCreateView(CreateView):
-    model = Post
-    fields = ['title', 'content']
-    content = forms.CharField(widget=FroalaEditor)
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
 
 
 

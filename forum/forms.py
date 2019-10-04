@@ -2,6 +2,7 @@ from django import forms
 from .models import Post, Comment
 from froala_editor.widgets import FroalaEditor
 
+#ModeLForm needs a model specified in class Meta
 class PostCreate(forms.ModelForm):
 
     class Meta:
@@ -12,15 +13,18 @@ class PostCreate(forms.ModelForm):
         }
 
 class CommentCreate(forms.ModelForm):
-    class Meta:
+
+    class Meta: 
         model = Comment
         fields = ['content']
         widgets = {
-             'content': forms.CharField(widget=FroalaEditor)
+            
         }
+
+  
 
 #import Post from the models file
 #Import django's forms class.
 
 #The PostCreate() class represents the model form
-#Meta defins the model that needs to be used when creating the model form.
+#Meta defines the model that needs to be used when creating the model form.
