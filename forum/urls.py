@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.conf.urls import url
 from . import views #
-from .views import PostCreateView, postdetail, PostUpdateView, PostDeleteView
+from .views import PostCreateView, PostUpdateView, PostDeleteView, postdetail
 from froala_editor.fields import FroalaField
 
 

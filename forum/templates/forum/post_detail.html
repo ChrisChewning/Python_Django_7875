@@ -12,22 +12,18 @@
             <h2 class="article-title">{{ post.title }} </h2>
         </div>
         <p>By {{ post.author }} on {{ post.date_posted|date:"N j, 'y"}}</p>
-        {{ form }}
         {{ post.content|safe }}
     </div>
 
     </article>
+
+
         <div class="media-body">            
             {% if user.is_authenticated %}
             
-            <p class='lead'>Reply</p>
-            {{ form|crispy }}
+           
+            <!-- {{ form|crispy }} -->
           
-            <form method="POST" action="."> 
-                {% csrf_token %} 
-                {{ content }}
-                <button type="submit" value="Post comment" class="btn btn-default">Post Comment</button>
-            </form>
             <hr/>
             <p class='lead'>Comments</p>
             {% for comment in comments %}
@@ -39,12 +35,20 @@
             
             {% endfor %}
             {% endif %}
-           
         </div>
+
+        <hr/>
+        <p class='lead'>Reply</p>
+        <form method="POST" action="."> 
+            {% csrf_token %} 
+            {{ content }}
+            <br/>
+            <button btn btn-outline-info type="submit" value="Post comment">Comment</button>
+        </form>
 
 {% endblock content %}
 
 
-
+{% include 'comments.html' with url=object.slug %}
 <!-- detailViews expects Object   -->
 

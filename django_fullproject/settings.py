@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms', 
     'froala_editor',
+    'disqus',
     'django.contrib.sites',
     'django_comments',
     'django.contrib.admin',
@@ -144,3 +145,6 @@ FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier' , 'code_view
         'entities', 'file', 'font_family', 'font_size', 'fullscreen', 'image_manager', 'image', 'inline_style',
         'line_breaker', 'link', 'html','lists', 'paragraph_format', 'paragraph_style', 'quick_insert', 'quote', 'save', 'table',
         'url', 'video')
+
+DISQUS_API_KEY = 'FOOBARFOOBARFOOBARFOOBARFOOBARF'
+DISQUS_WEBSITE_SHORTNAME = '78758beers'
