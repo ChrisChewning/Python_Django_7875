@@ -16,8 +16,17 @@
         <p>By {{ post.author }} on {{ post.date_posted|date:"N j, 'y"}}</p>
         {{form}}
         {{ post.content|safe }} 
+
+
+
+        <p>{{ post.score }}</p>
+      
+
+
+        <a href="{% url 'post-detail' post.id %}">comment</a>
     </div>
-    
+
+
     </article>
     {% endfor %}
 {% endblock content %}

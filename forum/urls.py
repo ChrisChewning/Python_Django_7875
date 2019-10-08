@@ -1,8 +1,10 @@
 from django.urls import path, include
 from django.conf.urls import url
 from . import views #
-from .views import PostCreateView, PostUpdateView, PostDeleteView, postdetail
+from .views import PostCreateView, PostUpdateView, PostDeleteView, postdetail, upvote
 from froala_editor.fields import FroalaField
+from django.views.generic.base import RedirectView
+
 
 
 urlpatterns = [
@@ -13,6 +15,7 @@ urlpatterns = [
     path('post/<int:pk>/delete', PostDeleteView.as_view(), name='post-delete'),
     path('post/<int:pk>/', views.postdetail, name='post-detail'),
     url(r'^froala_editor/', include('froala_editor.urls')),
+    path('post/<int:pk>/', views.upvote, name='upvote'),
     
 ]
 

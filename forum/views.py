@@ -9,13 +9,35 @@ from froala_editor.widgets import FroalaEditor
 from urllib.parse import urlsplit
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404
+
 
 #fn-based view
 def home(request):
+    
     context = {
-        'posts': Post.objects.all().order_by('-date_posted')[:10],
+        'posts': Post.objects.all().order_by('-date_posted')[:10],  
     }
     return render(request, 'forum/home.html', context) #passes the data in here.
+
+
+def upvote(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    already_liked = False
+    
+    if post.vote.filter(pk=request.user.pk).exists():
+        post.vote.remove(request.user)
+        already_liked = False
+    else: 
+        post.vote.add(request.user)
+        already_liked = True
+
+
+    context = {
+        'post': post,
+    }
+    return render(request, "forum/post_detail.html", context)
+
 
 
 #can't use decorators on classes. so login-mixin instead. 
@@ -27,6 +49,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
 
 #both needs to be to the left of UpdateView
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -58,29 +81,27 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 
-# class PostDetail(LoginRequiredMixin):
-#     model = Post
-#     fields = ['content']
-#     content = forms.CharField(widget=FroalaEditor)
-
-#   def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         return super().form_valid(form)
-
     
 
 
 
 def postdetail(request, pk):
+    comment_form = CommentCreate()
     post = Post.objects.get(pk=pk)
-    form = CommentCreate() #isn't sending to the template / showing up somehow
-    content = CommentCreate()
+    already_liked = False
+    
+    if post.vote.filter(pk=request.user.pk).exists():
+        already_liked = True
+    
 
     if request.method == 'POST':
         form = CommentCreate(request.POST) #create a new form w data in request.POST
+       #user is authenticated needed
+        if request.user.is_authenticated:
+            username = request.user.username
         if form.is_valid(): #bulit in to module. 
             form.instance.post = post
-            username = form.cleaned_data.get('username')
+            author = request.user.username
             form.save()
         else:
             return redirect('/')
@@ -99,13 +120,6 @@ def postdetail(request, pk):
 #     else:
 #         form=CommentForm()
 #     return render(request, 'comments/add_new_comment.html', {'form': form})
-
- 
-
-
-
-
-           
             
             
              #otherwise you get Integrity error: NOT NULL constraint failed: forum_comment.post_id
@@ -121,23 +135,15 @@ def postdetail(request, pk):
 
     context = {
         'post': post,
-        'content' : content,
-        # 'object.author': Post.author,
-        # 'comment': comment,
-		
-		
+        'comment_form' : comment_form,
+        'already_liked': already_liked,
+        'total_likes': post.total_likes(),	
 		}
-
-
+        
     return render(request, "forum/post_detail.html", context)
   
    
 
-class CommentCreateView(CreateView):
-    template_name = 'forum/post_detail.html'
-    model = Comment
-    fields = ['content']
-    content = forms.CharField(widget=FroalaEditor)
 
 
 

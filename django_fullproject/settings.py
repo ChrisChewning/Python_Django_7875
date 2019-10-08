@@ -33,9 +33,11 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'forum.apps.ForumConfig',   #comes from apps.py file 
     'users.apps.UsersConfig',
+    'main.apps.MainConfig',
     'crispy_forms', 
     'froala_editor',
     'disqus',
+    'django_google_maps',
     'django.contrib.sites',
     'django_comments',
     'django.contrib.admin',
@@ -146,5 +148,11 @@ FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier' , 'code_view
         'line_breaker', 'link', 'html','lists', 'paragraph_format', 'paragraph_style', 'quick_insert', 'quote', 'save', 'table',
         'url', 'video')
 
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyAyfnO18JWmKQSBjxtB7VEFri_XbN5WQzY' 
+
 DISQUS_API_KEY = 'FOOBARFOOBARFOOBARFOOBARFOOBARF'
+
 DISQUS_WEBSITE_SHORTNAME = '78758beers'
+
+SITE_ID = 1

@@ -41,14 +41,31 @@
         <p class='lead'>Reply</p>
         <form method="POST" action="."> 
             {% csrf_token %} 
-            {{ content }}
+            {{ comment_form }}
             <br/>
             <button btn btn-outline-info type="submit" value="Post comment">Comment</button>
         </form>
 
+        {{ total_likes }} Likes {{ total_likes|pluralize}}
+        
+        <form action="{% url 'upvote' post.id %}"  method="post">
+                {% csrf_token %}
+                {% if already_liked %}
+                    <button type="submit" name="post_id" value='{{ post.id }}' class='btn btn-danger' />Unlike</button>
+                {% else %}
+                    <button type="submit" name="post_id" value='{{ post.id }}' class="btn btn-primary" />Like</button>
+                {% endif %}   
+            
+            </form>
+
+            <p>Total # of Comments {{ comment.count }}</p>
+
+            <p>Comments below...</p>
+            {% for comment in post.comments.all %}
+            <p> {{ comment.content }} by {{ comment.author }}</p>
+            {% endfor %}
+
 {% endblock content %}
 
-
-{% include 'comments.html' with url=object.slug %}
 <!-- detailViews expects Object   -->
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        height: 50%;
+        width: 50%;
+      }
+      
+
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    
+  </head>
+  
+  
+  <body>
+    <div id="map"></div>
+    <script>
+var locations = [
+      ['Austin Beerworks', 30.379680, -97.729840, 4, 'https://www.austinbeerworks.com/'],
+      ['Cellis', 30.380220, -97.715860, 5, 'https://www.celisbeers.com/'],
+      ['Circle Brewing', 30.391060, -97.715350, 4, 'https://www.circlebrewing.com/'],
+      ['Adelberts', 30.382690, -97.720270, 4, 'https://www.adelbertsbeer.com/'],
+      ['Fourth Tap', 30.385241, -97.711861, 3, 'https://www.4thtap.coop/'],
+      ['Oskar Blues', 30.384100, -97.714740, 4, 'https://www.oskarblues.com/'],
+      ['Fairweather Cider', 30.384890, -97.712190, 5, 'http://www.fairweathercider.com']
+    ];
+
+//     var infowindow = new google.maps.InfoWindow();
+
+
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 30.382780, lng: -97.717440},
+          zoom: 14
+        });
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        for (i = 0; i < locations.length; i++) {  
+                marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map,
+                url: locations[i][4],
+                label:{
+                  text: locations[i][0],
+                  fontWeight: 'bold', 
+
+                },
+                icon:{      
+                  labelOrigin: new google.maps.Point(1116,64),
+                }
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+   
+    window.open(this.url, '_blank');
+//     window.location.href = this.url;
+});
+
+        };
+
+     
+
+    }
+
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyfnO18JWmKQSBjxtB7VEFri_XbN5WQzY&callback=initMap"
+    async defer></script>
+    <!-- <script src="http://maps.google.com/maps/api/js?sensor=false"  -->
+    <!-- type="text/javascript"></script> -->
+
+
+
+  </body>
+</html>

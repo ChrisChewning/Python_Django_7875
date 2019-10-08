@@ -16,7 +16,7 @@ class CommentCreate(forms.ModelForm):
     content = forms.CharField( label='')
     class Meta: 
         model = Comment
-        fields = ['content']
+        fields = ['author', 'content']
         widgets = {
             'content': forms.CharField(widget=FroalaEditor)  
             # gets the error 'CharField' object has no attribute 'is_hidden'. I believe it has to be in a class CreateView, not a fn view. 
